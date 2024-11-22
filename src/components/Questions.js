@@ -1,8 +1,8 @@
-function Questions({ question, dispatch, answer }) {
+function Questions({ question, dispatch, answer, index, numQuestion }) {
   console.log(question);
   const hasAnswered = answer !== null;
   console.log({ answer, hasAnswered, correctOption: question.correctOption });
-
+  if (index === null) return null;
   return (
     <div>
       <h4>{question.question}</h4>
@@ -25,12 +25,23 @@ function Questions({ question, dispatch, answer }) {
           </button>
         ))}
       </div>
-      <button
-        className="btn btn-ui"
-        onClick={() => dispatch({ type: "nextQuestion" })}
-      >
-        Next{" "}
-      </button>
+
+      {index < numQuestion - 1 && (
+        <button
+          className="btn btn-ui"
+          onClick={() => dispatch({ type: "nextQuestion" })}
+        >
+          Next
+        </button>
+      )}
+      {index === numQuestion - 1 && (
+        <button
+          className="btn btn-ui"
+          onClick={() => dispatch({ type: "finish" })}
+        >
+          Finish
+        </button>
+      )}
     </div>
   );
 }
